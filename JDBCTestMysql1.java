@@ -15,8 +15,7 @@ import java.lang.*;
 public class JDBCTestMysql1 {
     
     private static Connection conn;
-	private static String ticker;
-	static BufferedWriter writer;    		
+	static BufferedWriter writer;	
 
     
     public static void main(String args[]) throws IOException {
@@ -27,7 +26,11 @@ public class JDBCTestMysql1 {
         } catch (Exception ex) {};
         
         prepareHTML("/Users/jamiecorr/Desktop/365/Lab8/NYSE/htmlBegin.html");
-        generalStockData();        
+        
+        generalStockData();       
+        individualStockData("CB");
+        individualStockData("DUK");
+        
         prepareHTML("/Users/jamiecorr/Desktop/365/Lab8/NYSE/htmlEnd.html");
         
         try {
@@ -42,22 +45,7 @@ public class JDBCTestMysql1 {
     public static void generalStockData() {
     	//	Q1
     	//	Report the total number of securities traded at the start of 2016, 
-    	String query1_1 = "SELECT count(*) AS 'Traded at the start of 2016' FROM Securities WHERE (StartDate BETWEEN '2016-01-01' AND '2016-03-31')";
-    	runQuery(query1_1);
-    	
-    	//	total number of securities traded at the end of 2016
-    	String query1_2 = "SELECT count(*) AS 'Traded at the end of 2016' FROM Securities WHERE (StartDate BETWEEN '2016-10-01' AND '2016-12-31')";
-    	runQuery(query1_2);
-
-    	//  total number of securities whose prices saw increase 
-    	// 	between the end of 2015 and the end of 2016
-    	String query1_3 = "SELECT count(*) AS 'Price Increase' FROM Prices s1, Prices s2 WHERE (s1.Day BETWEEN '2015-10-01' AND '2015-12-31') AND (s2.Day BETWEEN '2016-10-01' AND '2016-12-31') AND (s1.Open < s2.Open)";
-//    	runQuery(query1_3);
-    	
-    	// 	total number of securities whose prices saw decrease 
-    	//	between the end of 2015 and the end of 2016.
-    	String query1_4 = "SELECT count(*) AS 'Price Decrease' FROM Prices s1, Prices s2 WHERE (s1.Day BETWEEN '2015-10-01' AND '2015-12-31') AND (s2.Day BETWEEN '2016-10-01' AND '2016-12-31') AND (s1.Open > s2.Open)";
-//    	runQuery(query1_4);
+    	runQuery("SELECT * FROM (SELECT count(*) AS 'Traded at the start of 2016' FROM Securities WHERE (StartDate BETWEEN '2016-01-01' AND '2016-03-31')) a, (SELECT count(*) AS 'Traded at the end of 2016' FROM Securities WHERE (StartDate BETWEEN '2016-10-01' AND '2016-12-31')) b, (SELECT count(*) AS 'Whose prices saw increase between the end of 2015 and the end of 2016' FROM Prices s1, Prices s2 WHERE (s1.Day BETWEEN '2015-10-01' AND '2015-12-31') AND (s2.Day BETWEEN '2016-10-01' AND '2016-12-31') AND s1.Open < s2.Open AND s1.Ticker = s2.Ticker) c, (SELECT count(*) AS 'Whose prices saw decrease between the end of 2015 and the end of 2016' FROM Prices s1, Prices s2 WHERE (s1.Day BETWEEN '2015-10-01' AND '2015-12-31') AND (s2.Day BETWEEN '2016-10-01' AND '2016-12-31') AND s1.Open > s2.Open) d");
     	
     	//  Q2
     	//	Report the top 10 stocks that were most heavily traded in 2016
@@ -65,8 +53,12 @@ public class JDBCTestMysql1 {
     	runQuery(query2);
     }
     
-    public static void individualStockData(String ticker) {
-
+    public static void individualStockData(String ticker) throws IOException {
+    	writer.write("<h1>Individual Stock Data for: " + ticker + "</h1>");
+    	
+    	//  Q1
+    	//  Range of dates for which the pricing data is available
+    	runQuery("SELECT Ticker, min(day), max(day) FROM Prices WHERE Ticker = '" + ticker + "'");
     }
     
     public static int runQuery(String query) {
@@ -144,19 +136,8 @@ public class JDBCTestMysql1 {
             System.out.println(ex);
         };
     }
-    
-    public static void parseInput(String arg) {
-    	//if file of list of tickers
-		if (arg.length() > 4) {
-			readFileByLine(arg);
-		}
-		//if one ticker
-		else {
-			individualStockData(arg);	
-		}
-	}
 	 
-	public static void readFileByLine(String fileName) {	
+	public static void listTickers(String fileName) throws IOException {	
    	  	try {
    	  			File file = new File(fileName);
    	   			Scanner scanner = new Scanner(file);

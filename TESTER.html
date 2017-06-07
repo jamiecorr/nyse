@@ -26,54 +26,38 @@ footer {
     margin-top: 15px;
 }
 
-nav {
-    float: left;
-    max-width: 160px;
-    margin: 0;
-    padding: 1em;
-}
-
-nav ul {
-    list-style-type: none;
-    padding: 0;
-}
-   
-nav ul a {
-    text-decoration: none;
-}
-
-article {
-    margin-left: 170px;
-    margin-bottom: 80px;
-    padding: 1em;
-    overflow: hidden;
-}
 table {    
-    border: 1px solid gray;
-	text-align: center;
-    font-size: 11px;
+    font-size: 12px;
     margin-bottom: 10px;
-    cell-padding: 2px;
+    text-align: center;
+   	cell-padding: 6px 6px 6px 12px;
 }
 table th {
 	font-size: 12px;
-	
+	background-color: plum;
+    color: white;
+    text-transform: uppercase;
+    padding: 6px 12px 6px 12px;
+    font-family: Palatino Linotype;
+}
+table tr:nth-child(odd) {
+    background-color: #F5FFFA;
 }
 section {
 	margin-left: 15px;
 }
 
+
+
 </style>
 </head>
 <body>
 
-<nav>
+
 <header>
    <h1>NYSE</h1>
 </header>
-</nav>
 <div class="container">
-<article> </article>
 
 
 <section>
@@ -81,15 +65,8 @@ section {
 
 
 <table>
-<tr><th>Traded at the start of 2016</th></tr>
-<tr><td>10</td></tr>
-</table>
-
-
-
-<table>
-<tr><th>Traded at the end of 2016</th></tr>
-<tr><td>3</td></tr>
+<tr><th>Traded at the start of 2016</th><th>Traded at the end of 2016</th><th>Whose prices saw increase between the end of 2015 and the end of 2016</th><th>Whose prices saw decrease between the end of 2015 and the end of 2016</th></tr>
+<tr><td>10</td><td>3</td><td>1319568</td><td>484065952</td></tr>
 </table>
 
 
@@ -106,6 +83,20 @@ section {
 <tr><td>IFF</td></tr>
 <tr><td>SIG</td></tr>
 <tr><td>CXO</td></tr>
+</table>
+
+<h1>Individual Stock Data for: CB</h1>
+
+<table>
+<tr><th>Ticker</th><th>min(day)</th><th>max(day)</th></tr>
+<tr><td>CB</td><td>2010-01-04</td><td>2016-12-30</td></tr>
+</table>
+
+<h1>Individual Stock Data for: DUK</h1>
+
+<table>
+<tr><th>Ticker</th><th>min(day)</th><th>max(day)</th></tr>
+<tr><td>DUK</td><td>2010-01-04</td><td>2016-12-30</td></tr>
 </table>
 
 </section>
