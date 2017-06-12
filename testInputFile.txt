@@ -1,2 +1,4 @@
-GOOG
-APPL
+DUK
+CB
+VRSK
+WY
