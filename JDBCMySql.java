@@ -1,11 +1,8 @@
-//**************************************//
-//      	Jamie Corr      	   		//
-//      	jccorr@calpoly.edu     		//
-//     			 	              		//
-//			Salonee Thanawala 	  		//
-//       	sthanawa@calpoly.edu   		//
-//										//
-//**************************************//  
+//	Jamie Corr
+//	jccorr@calpoly.edu 
+//     		&	 
+//	Salonee Thanawala 	  
+//	sthanawa@calpoly.edu   	
 
 import java.sql.*;
 import java.util.*;
