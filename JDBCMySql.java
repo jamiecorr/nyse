@@ -1,8 +1,11 @@
-//	Jamie Corr
-//	jccorr@calpoly.edu 
-//     		&	 
-//	Salonee Thanawala 	  
-//	sthanawa@calpoly.edu   	
+//**************************************//
+//      	Jamie Corr      	   		//
+//      	jccorr@calpoly.edu     		//
+//     			 	              		//
+//			Salonee Thanawala 	  		//
+//       	sthanawa@calpoly.edu   		//
+//										//
+//**************************************//  
 
 import java.sql.*;
 import java.util.*;
@@ -15,8 +18,14 @@ public class JDBCMySql {
     
     public static void main(String args[]) throws IOException {
         connectDB();
-        listTickers(args[0]);
-//        listTickers("GOOG");
+        // to test from command line
+//        listTickers(args[0]);
+        
+        // to test from input file
+         listTickers("testInputFile.txt");
+        
+        // to test individual tickers
+        // listTickers("GOOG");
 
         try {
             conn.close();
